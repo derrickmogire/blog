@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% load static %} {% block title %}
+<title>New Post</title>
+{% endblock title%} {% block content %}
+<div class="container mt-4">
+  <form method="POST" class="col-sm-6" enctype="multipart/form-data">
+    {% csrf_token %} {{form.as_p}}{{formset.as_table}}
+    <button type="submit" class="btn bg-info text-light">Post</button>
+  </form>
+</div>
+{% endblock content %}

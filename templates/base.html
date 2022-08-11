@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block title %} {% endblock title %}
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="http://cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css"
+      type="text/css"
+      media="screen"
+      charset="utf-8"
+    />
+    <link
+      rel="stylesheet"
+      href="http://cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/themes/tim.css"
+      type="text/css"
+      media="screen"
+      charset="utf-8"
+    />
+    
+
+    <!-- Compiled and minified JavaScript -->
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg p-0 navbar-mainbg">
+      <a class="navbar-brand navbar-logo" href="#">{{user.username}}</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <div class="hori-selector">
+            <div class="left"></div>
+            <div class="right"></div>
+          </div>
+          <li class="nav-item active">
+            <a href="{% url 'home' %}"
+              ><i class="fas fa-tachometer-alt"></i>Feeds</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0);"
+              ><i class="far fa-address-book"></i>Topics</a
+            >
+          </li>
+          <li class="nav-item">
+            <a  href="{% url 'favourites' %}"
+              ><i class="far fa-clone"></i>Favourites</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0);"
+              ><i class="far fa-calendar-alt"></i>Groups</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'newpost' %}"
+              ><i class="far fa-chart-bar"></i>New Post</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'editprofile' %}"
+              ><i class="far fa-copy"></i>Profile</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+    
+   
+    {% if user.is_authenticated %}
+    <button class="btn-success btn col-sm-1 "><a class="text-light" href="{% url 'logout' %}" >logout</a></button>
+    
+    {% else %}<button class="btn-success btn col-sm-1 "><a class="text-light" href="{% url 'register' %}" >Register</a></button>
+     <button class="btn-success btn col-sm-1 "><a class="text-light" href="{% url 'login' %}" >login</a></button>
+     {% endif %}
+   
+    
+    
+
+    <form method=="GET" class='col-sm-4 form-group search mt-2'>
+    
+    <input type='search' name='q' class="form-control" placeholder='Search Posts' >
+    </form>
+    {% block content %} {% endblock content %}
+
+     <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script><script src="http://cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <script src="{% static 'Javascript/script.js' %}"></script>
+    <script src="{% static 'Javascript/medium-editor.js' %}"></script>
+    <script src="{% static 'Javascript/nav-style.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+   </script>
+  </body>
+</html>

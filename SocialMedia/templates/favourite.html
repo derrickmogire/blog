@@ -1,0 +1,23 @@
+{% extends 'base.html' %}{% load static %} {% block title %}
+<title>Edit Profile</title>
+{% endblock title%} {% block content %}
+<div class="container mt-4">
+  {% for p in favourites %}
+  <h3 class="h5">{{p.title}}</h3>
+    <span>{{p.body}} </span>
+    <div class="">
+      {% for p in p.images_set.all %}
+      <div class="">
+        <img src="{{p.image.url}}" alt="{{p.title}}" class="img-thumbnail" />
+      </div>
+      {% endfor %}
+    </div>
+    <div class="border rounded mt-1 bg-white text-dark">
+      Published by:{{p.author}} on {{p.created}} 
+       </div>
+   {% empty %} 
+   <small>No posts</small>
+
+  {% endfor %}
+</div>
+{% endblock content %}

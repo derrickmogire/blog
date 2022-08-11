@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% load static %} {% block title %}
+<title>Edit Profile</title>
+{% endblock title%} {% block content %}
+<div class="container mt-4">
+  <form method="POST" class="col-sm-6">
+    {% csrf_token %} {{form.as_p}}
+    <button type="submit" class="btn bg-info text-light">Post</button>
+  </form>
+</div>
+{% endblock content %}

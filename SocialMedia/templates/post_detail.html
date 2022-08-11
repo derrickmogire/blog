@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% block title %}{% load static %}
+<title>{{post.title}}</title>
+{% endblock title %} {% block content %}
+<div class="container mt-4 d-flex flex-column">
+  <div class="post bg-light col-sm-8 p-3 mb-5 rounded">
+    <h3 class="h5">{{post.title}}</h3>
+    <span>{{post.body}} </span>
+    
+    <div class="">
+      {% for p in post.images_set.all %}
+      <div class="">
+        <img src="{{p.image.url}}" alt="{{post.title}}" class="img-thumbnail" />
+      </div>
+      {% endfor %}
+    </div>
+    <div class="border rounded mt-1 bg-white text-dark">
+      Published by:{{post.author}} on {{post.created}} {{post.views}}
+       </div>
+      {% if post.author == request.user %}
+
+<div class="section-1 mt-2" >
+
+  <a href="{% url 'editpost' id=post.id %}">
+    <button type="button" class="btn btn-outline-success">Edit</button>
+  </a>
+  <a href="{% url 'deletepost' id=post.id %}" id="delete">
+    <button type="button" class="btn btn-danger">Delete</button>
+  </a>
+</div>
+{% endif %}
+    
+     
+    <hr />
+    <div class="likes-section">
+      {% csrf_token %}
+      {% include 'likes_section.html' %}</div>
+    <div class="favourites-section">
+      {% if is_favourite %}
+
+      <a href="{% url 'favouritepost' id=post.id %}"><i class="fas fa-heart fa-lg"></i></a>
+      {% else %}
+      <a href="{% url 'favouritepost' id=post.id %}"><i class="far fa-heart fa-lg"></i></a>
+    
+      {% endif %}
+    </div>
+  
+  <hr>
+  <form method="post" class="col-sm-3">
+    {%csrf_token%}
+    {{comment.as_p}}
+    {% if user.is_authenticated %}
+    <button type="submit" class="btn bg-dark text-light">Comment</button>{% else %}<button type="submit" class="btn bg-dark text-light" disabled>Comment</button>{% endif %}
+  </form>
+
+  <div class="ml-1 main-comment-section">
+  {{comments.count}} comment{{comments|pluralize}}
+  {% for comment in comments %}
+  <blockquote class="blockquote">
+  <p class="mb-0">{{comment.comment}}</p>
+  <footer class="blockquote-footer">By <cite title="Source Title">{{comment.user|capfirst}}</footer>
+</blockquote>
+<div class="related-comments container mt-2">
+  <div class="form-group ">
+    <form method="post" class="col-sm-3">
+      {%csrf_token%}
+      <input type="hidden" name="comment_id" value="{{comment.id}}">
+      {{comment.as_p}}
+      {% if user.is_authenticated %}
+      <button type="submit" class="btn bg-dark text-light">Reply</button>{% else %}<button type="submit" class="btn bg-dark text-light" disabled>Reply</button>{% endif %}
+    </form>
+
+  </div>
+</div>
+  {% endfor %}
+  </div>
+</div></div>
+{% endblock content %}

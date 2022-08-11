@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block title %}
+<title>SocialMedia|home</title>
+{% endblock title %} {% block content %}
+<div class="container mt-4">
+  {% for post in posts %}
+  <div class="post bg-light col-sm-4 shadow p-3 mb-5 rounded">
+    <h3 class="h5">
+      <a href="{% url 'details' post.id post.slug %}" class="text-dark"
+        >{{post.title}}</a
+      >
+    </h3>
+    <span>{{post.snippet}} </span
+    ><a href="{% url 'details' post.id post.slug %}" class="">Read more...</a>
+    <div class="border rounded mt-1 bg-white text-dark">
+      Published by:{{post.author}} on {{post.created}}
+    </div>
+    <hr />
+  </div>
+  {% empty %}
+  <div class="alert alert-warning text-center" role="alert">
+    No results found for <strong>'{{request.GET.q}}'</strong>
+  </div>
+  {% endfor %}
+</div>
+
+<ul class="pagination container">
+  <li class="page-item">
+    <a
+      class="page-link"
+      href="?page=1"
+      title="GoTo first Page"
+      aria-label="Previous"
+    >
+      <span aria-hidden="true">&laquo;</span>
+      <span class="sr-only">First</span>
+    </a>
+  </li>
+  {% for p in page_range %} {% if posts.number == p %}
+  <li class="page-item active">
+    <a class="page-link" href="?page={{p}}">{{p}}</a>
+  </li>
+  {% else %}
+  <li class="page-item">
+    <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+  </li>
+  {% endif %} {% endfor %}
+  <li class="page-item">
+    <a
+      class="page-link"
+      href="?page=0"
+      title="GoTo Last Page"
+      aria-label="Next"
+    >
+      <span aria-hidden="true">&raquo;</span>
+      <span class="sr-only">Last</span>
+    </a>
+  </li>
+</ul>
+{% endblock content %}
